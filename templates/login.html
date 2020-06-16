@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h1 class="my-4 text-center">Авторизация</h1>
+                <form method="POST" id="add_form">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button form="add_form" type="submit" class="btn btn-primary mt-4">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

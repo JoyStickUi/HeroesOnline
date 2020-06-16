@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% block css_dependencies %}
+    {% endblock %}
+</head>
+<body>
+{% block nav_bar %}
+    <nav class="nav nav-pills align-items-center justify-content-end px-5 py-2 bg-dark text-white" id="nav_bar">
+        <div class="col justify-self-start" id="user">
+            {{ request.user }}
+        </div>
+        {% if not request.user.is_authenticated %}
+            {% url 'register_page' as url_register_page %}
+            <li class="nav-item"><a href="{{ url_register_page }}" class="nav-link text-white {% if url_register_page == request.path %}active{% endif %}">Регистрация</a></li>
+            {% url 'login_page' as url_login_page %}
+            <li class="nav-item"><a href="{{ url_login_page }}" class="nav-link text-white mr-3 {% if url_login_page == request.path %}active{% endif %}">Войти</a></li>
+        {% else %}
+            {% url 'shop' as url_shop %}
+            <li class="nav-item"><a href="{{ url_shop }}" class="nav-link text-white mr-3 {% if url_shop == request.path %} active {% endif %}">Магазин</a></li>
+            {% url 'game_client_page' as url_client_page %}
+            <li class="nav-item"><a href="{{ url_client_page }}" class="nav-link text-white mr-3 {% if url_client_page == request.path %} active {% endif %}">Играть</a></li>
+            {% url 'friends_searching_page' as url_friends_page %}
+            <li class="nav-item"><a href="{{ url_friends_page }}" class="nav-link text-white mr-3 {% if url_friends_page == request.path %} active {% endif %}">Друзья</a></li>
+            {% url 'logout_page' as url_logout_page %}
+            <li class="nav-item"><a href="{{ url_logout_page }}" class="nav-link text-white btn-danger">Выйти</a></li>
+        {% endif %}
+    </nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% block js_dependencies %}
+{% endblock %}
+</html>

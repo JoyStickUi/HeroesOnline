@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block css_dependencies %}
+    <link rel="stylesheet" href="{% static 'game/GameClient/GameClient.css' %}">
+{% endblock %}
+{% block content %}
+    <canvas></canvas>
+    {% csrf_token %}
+{% endblock %}
+{% block js_dependencies %}
+    <script src="{% static 'game/GameClient/GameClient.js' %}" type="module"></script>
+{% endblock %}

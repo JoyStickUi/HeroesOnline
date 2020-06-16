@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col">
+                <h2>Пользователи</h2>
+                <ul>
+                    {% if founded_users %}
+                        {% for user in founded_users %}
+                            {% if request.user.username != user.username %}
+                                <form action="{% url 'create_friendship' %}" method="POST" class="mb-4" id="create_{{ user.username }}">
+                                    {% csrf_token %}
+                                    <input type="text" hidden value="{{ user.username }}" name="username">
+                                    <span class="font-weight-bold mr-5">{{ user.username }}</span>
+                                    <button class="btn btn-primary" type="submit" form="create_{{ user.username }}">Подружиться</button>
+                                </form>
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col">
+                <h2>Ваши друзья</h2>
+                {% if founded_friends %}
+                    {% for user in founded_friends %}
+                        {% if request.user.username != user.username %}
+                            <form action="{% url 'delete_friendship' %}" method="POST" class="mb-4" id="delete_{{ user.username }}">
+                                {% csrf_token %}
+                                <input type="text" hidden value="{{ user.username }}" name="friend">
+                                <span class="font-weight-bold mr-5">{{ user.username }}</span>
+                                <button class="btn btn-primary" type="submit" form="delete_{{ user.username }}">Удалить из друзей</button>
+                            </form>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block css_dependencies %}
+    <link rel="stylesheet" href="/static/shop/shop.css">
+{% endblock %}
+{% block content %}
+    <div class="account bg-warning text-dark">
+        <span class="account__title">
+            Your account:
+        </span>
+        <span class="account__number">
+            {{ money }}
+        </span>
+    </div>
+    <div class="grid">
+        {% for product in products %}
+            <form action="{% url 'buy_figure' %}" method="POST" class="col border border-primary grid__item">
+                {% csrf_token %}
+                <img src="/static/shop/products/thumbs/{{ product.name }}.png" alt="" class="grid__item__thumb">
+                <div class="grid__item__head">
+                    <h2 class="text-white">{{ product.name }}</h2>
+                    <input type="hidden" value="{{ product.name }}" name="figure_name">
+                </div>
+                <div class="grid__item__content">
+                    <h1 class="text-warning font-weight-bold text-center">{{ product.price }}</h1>
+                </div>
+                <div class="grid__item__bottom">
+                    <button type="submit" class="btn btn-primary btn-block">Купить</button>
+                </div>
+            </form>
+        {% endfor %}
+    </div>
+{% endblock %}
